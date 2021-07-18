@@ -9,21 +9,62 @@ Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://j
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
-Syntax highlighted code block
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtWebEngineWidgets import *
+import sys
 
-# Header 1
-## Header 2
-### Header 3
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.browser = QWebEngineView()
+        self.browser.setUrl(QUrl("https://www.google.com/"))
+        self.setCentralWidget(self.browser)
+        self.showMaximized()
 
-- Bulleted
-- List
+        navbar = QToolBar()
+        self.addToolBar(navbar)
 
-1. Numbered
-2. List
+        back = QAction('<Back', self)
+        back.triggered.connect(self.browser.back)
+        navbar.addAction(back)
 
-**Bold** and _Italic_ and `Code` text
+        forward=QAction('Forward>', self)
+        forward.triggered.connect(self.browser.forward)
+        navbar.addAction(forward)
 
-[Link](url) and ![Image](src)
+        reload=QAction('Reload', self)
+        reload.triggered.connect(self.browser.reload)
+        navbar.addAction(reload)
+
+        home=QAction('Home',self)
+        home.triggered.connect(self.nav_home)
+        navbar.addAction(home)
+
+        self.url_bar = QLineEdit()
+        self.url_bar.returnPressed.connect(self.nav_url)
+        navbar.addWidget((self.url_bar))
+
+        self.browser.urlChanged.connect(self.update_url)
+
+
+    def nav_home(self):
+           self.browser.setUrl(QUrl("https://www.google.com/"))
+
+    def nav_url(self):
+        url = self.url_bar.text()
+        self.browser.setUrl(QUrl(url))
+
+    def update_url(self, q):
+        self.url_bar.setText(q.toString( ))
+
+
+
+app = QApplication(sys.argv)
+QApplication.setApplicationName("MyBrowser")
+window = MainWindow()
+
+app.exec_()
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
