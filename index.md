@@ -1,9 +1,8 @@
 ## Welcome to Oskorp Repositories
 
-### Browser Code
+### WebBrowser1 Code
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+Web Browser using PyQt5 Module.
 ```markdown
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
